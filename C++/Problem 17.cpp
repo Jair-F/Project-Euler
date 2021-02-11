@@ -4,7 +4,7 @@
 
 const char* digits[20] = { "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
 										"eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
-const char* teens[10] = {"", "ten", "twenty", "thirty", "fourty", "fifty", "sixty", "seventy", "eighty", "ninety"};
+const char* teens[10] = {"", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
 const char* houndred = { "hundred" };
 const char* thousend = { "thousand" };
 
