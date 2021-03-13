@@ -1,7 +1,5 @@
 #include <iostream>
-#include <limits>
 #include <string>
-#include <cstring>
 
 // string umdrehen - von hinten nach vorne
 std::string stringFromBack(std::string& str) {
