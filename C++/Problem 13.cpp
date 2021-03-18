@@ -1,5 +1,8 @@
 #include <iostream>
+#include <fstream>
+#include <exception>
 #include <string>
+#include <vector>
 
 // string umdrehen - von hinten nach vorne
 std::string stringFromBack(std::string& str) {
@@ -96,25 +99,29 @@ BigNumber& BigNumber::operator+=(std::string numToAdd) {
 	return *this;
 }
 
-BigNumber fakul(unsigned short number) {
-	BigNumber ret("1");
-	for(unsigned short i = number; i >= 2; i--) {
-		ret = ret * i;
-	}
-	return ret;
-}
-
 int main() {
-	std::string result = fakul(100).getNumber();
-	std::cout << "Ergebnis: " << result << "\n\n";
-
-	std::cout << "Summe der Zahlen: ";
-	unsigned int sumOfDigits = 0;
-	for(unsigned short i = 0; i < result.size(); i++) {
-		sumOfDigits += result[i] - '0';
+	std::ifstream input("input1");
+	if(!input.good()) {
+		throw std::runtime_error("Fehler beim oeffnen der Input-Datei");
 	}
-	std::cout << sumOfDigits << '\n';
 
+	std::vector<std::string> numbers;
+	std::string tmp_str;
+	while(std::getline(input, tmp_str)) {
+		numbers.push_back(tmp_str);
+	}
+
+	BigNumber sumOfNumbers;
+	for(std::string tmp : numbers) {
+		sumOfNumbers += tmp;
+	}
+	std::cout << "Sum of the numbers : " << sumOfNumbers.getNumber() << '\n';
+
+	std::cout << "10 first digits: ";
+	for(unsigned short i = 0; i < 10; i++) {
+		std::cout << sumOfNumbers.getNumber()[i];
+	}
+	std::cout << '\n';
 
 	return 0;
 }

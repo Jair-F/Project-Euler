@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+
+
 // string umdrehen - von hinten nach vorne
 std::string stringFromBack(std::string& str) {
 	std::string ret;
@@ -96,22 +98,22 @@ BigNumber& BigNumber::operator+=(std::string numToAdd) {
 	return *this;
 }
 
-BigNumber fakul(unsigned short number) {
-	BigNumber ret("1");
-	for(unsigned short i = number; i >= 2; i--) {
-		ret = ret * i;
+BigNumber power(std::size_t number, std::size_t pow) {
+	BigNumber ret(std::to_string(number));
+	for(std::size_t i = 0; i < pow - 1; i++) {
+		ret = ret * number;
 	}
 	return ret;
 }
 
 int main() {
-	std::string result = fakul(100).getNumber();
-	std::cout << "Ergebnis: " << result << "\n\n";
-
-	std::cout << "Summe der Zahlen: ";
-	unsigned int sumOfDigits = 0;
-	for(unsigned short i = 0; i < result.size(); i++) {
-		sumOfDigits += result[i] - '0';
+	std::string result = power(2, 1000).getNumber();
+	std::cout << "Result: " << result << '\n';
+	
+	std::cout << "Sum of digits: ";
+	std::size_t sumOfDigits = 0;
+	for(char c : result) {
+		sumOfDigits += c - '0';
 	}
 	std::cout << sumOfDigits << '\n';
 
