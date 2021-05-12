@@ -26,6 +26,7 @@ public:
 	BigNumber& operator+=(std::string numToAdd);
 	BigNumber& operator+=(const BigNumber& Bn);
 	BigNumber operator*(unsigned long num);
+	BigNumber& operator*=(unsigned long num);
 	bool operator>(const std::string& numToComp);
 	bool operator>(const BigNumber& bg) { return *this > bg.getNumber(); }
 };
@@ -58,6 +59,11 @@ BigNumber BigNumber::operator*(unsigned long num) {
 		ret += orginalNumber;
 	}
 	return ret;
+}
+
+BigNumber& BigNumber::operator*=(unsigned long num) {
+	*this = *this * num;
+	return *this;
 }
 
 BigNumber& BigNumber::operator+=(const BigNumber& Bn) {
