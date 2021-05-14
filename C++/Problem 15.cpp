@@ -3,7 +3,8 @@
 
 */
 #define TEST
-unsigned int punkte=3;
+// "Kreuzungen" der Linien(Bei 3x3 Grid sind es 4, bei 20x20 Grid sind es 21)
+unsigned int punkte=21;
 
 unsigned int gitterwege(unsigned int x=punkte, unsigned int y=punkte){
     if(x == 0 && y == 0){
