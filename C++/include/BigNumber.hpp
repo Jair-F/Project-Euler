@@ -23,12 +23,18 @@ public:
 	void setNumber(std::string& num) { number = num; }
 	std::string getNumber() const { return number; }
 
+	BigNumber& operator+=(std::size_t numToAdd);
 	BigNumber& operator+=(std::string numToAdd);
 	BigNumber& operator+=(const BigNumber& Bn);
 	BigNumber operator*(unsigned long num);
 	BigNumber& operator*=(unsigned long num);
 	bool operator>(const std::string& numToComp);
 	bool operator>(const BigNumber& bg) { return *this > bg.getNumber(); }
+	/*
+	BigNumber& operator=(BigNumber& bg) { *this = bg.getNumber(); }
+	BigNumber& operator=(std::string num) { number = num; return *this; }
+	BigNumber& operator=(std::size_t num) { *this = std::to_string(num); }
+	*/
 };
 
 bool BigNumber::operator>(const std::string& numToComp) {
@@ -64,6 +70,10 @@ BigNumber BigNumber::operator*(unsigned long num) {
 BigNumber& BigNumber::operator*=(unsigned long num) {
 	*this = *this * num;
 	return *this;
+}
+
+BigNumber& BigNumber::operator+=(std::size_t numToAdd) {
+	return *this += std::to_string(numToAdd);
 }
 
 BigNumber& BigNumber::operator+=(const BigNumber& Bn) {
