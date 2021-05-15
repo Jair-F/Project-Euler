@@ -19,6 +19,7 @@ private:
 	std::string number;
 public:
 	BigNumber(std::string num="0") :number(num) { }
+	BigNumber(std::size_t num) : number(std::to_string(num)) { }
 	~BigNumber() { }
 	void setNumber(std::string& num) { number = num; }
 	std::string getNumber() const { return number; }
@@ -26,10 +27,33 @@ public:
 	BigNumber& operator+=(std::size_t numToAdd);
 	BigNumber& operator+=(std::string numToAdd);
 	BigNumber& operator+=(const BigNumber& Bn);
-	BigNumber operator*(unsigned long num);
+
+	BigNumber& operator*=(const BigNumber& bg);
 	BigNumber& operator*=(unsigned long num);
-	bool operator>(const std::string& numToComp);
-	bool operator>(const BigNumber& bg) { return *this > bg.getNumber(); }
+	BigNumber operator*(unsigned long num);
+	BigNumber operator*(const BigNumber& bg);
+
+	const bool operator==(const std::string num) { return this->number == num; }
+	const bool operator==(const BigNumber& bg) { return this->number == bg.getNumber(); }
+
+	const bool operator>(std::string numToComp);
+	const bool operator>(const BigNumber& bg) { return *this > bg.getNumber(); }
+	const bool operator<(const std::string& numToComp) { return !(*this > numToComp); }
+	const bool operator<(const BigNumber& bg) { return *this < bg.getNumber(); }
+	const bool operator<=(const BigNumber& bg) { return *this < bg || *this == bg; }
+
+	// Prefix
+	BigNumber& operator++() {
+		*this += 1;
+		return *this;
+	}
+	// Postfix
+	BigNumber operator++(int) {
+		BigNumber oldNumber = *this;
+		*this += 1;
+		return oldNumber;
+	}
+
 	/*
 	BigNumber& operator=(BigNumber& bg) { *this = bg.getNumber(); }
 	BigNumber& operator=(std::string num) { number = num; return *this; }
@@ -37,38 +61,58 @@ public:
 	*/
 };
 
-bool BigNumber::operator>(const std::string& numToComp) {
+const bool BigNumber::operator>(std::string numToComp) {
+	std::string thisNumber = stringFromBack(this->number);
+	stringFromBack(numToComp);
 	char oneDigitNumToComp;
 	char oneDigitThisNum;
-	for(int i = (this->number.size() > numToComp.size() ? this->number.size() : numToComp.size()); i > 0; i--) {
+	for(long i = (thisNumber.size() > numToComp.size() ? thisNumber.size() : numToComp.size()); i > 0; i--) {
 		if(numToComp.size() < i) {
 			oneDigitNumToComp = '0';
 		} else {
-			oneDigitNumToComp = numToComp[i];
+			oneDigitNumToComp = numToComp[i - 1];
 		}
-		if(this->number.size() < i) {
+		if(thisNumber.size() < i) {
 			oneDigitThisNum = '0';
 		} else {
-			oneDigitThisNum = this->number[i];
+			oneDigitThisNum = thisNumber[i - 1];
 		}
-		if(oneDigitThisNum > oneDigitNumToComp) {
-			return true;
+		if(oneDigitThisNum < oneDigitNumToComp) {
+			return false;
 		}
 	}
-	return false;
+	return true;
 }
 
-BigNumber BigNumber::operator*(unsigned long num) {
+BigNumber BigNumber::operator*(const BigNumber& bg) {
+	if(this->number == "0" || bg.getNumber() == "0") {
+		return BigNumber("0");
+	}
+	BigNumber ret(0);
+	for(BigNumber i(0); i < bg; ++i) {
+		ret += *this;
+	}
+	return ret;
+}
+
+BigNumber BigNumber::operator*(std::size_t num) {
 	std::string orginalNumber = this->getNumber();
 	BigNumber ret("0");
-	for(unsigned long i = 0; i < num; i++) {
+	for(std::size_t i = 0; i < num; i++) {
 		ret += orginalNumber;
 	}
 	return ret;
 }
 
+BigNumber& BigNumber::operator*=(const BigNumber& bg) {
+	for(BigNumber i("0"); i < bg; ++i) {
+		*this += bg;
+	}
+	return *this;
+}
+
 BigNumber& BigNumber::operator*=(unsigned long num) {
-	*this = *this * num;
+	*this *= num;
 	return *this;
 }
 
