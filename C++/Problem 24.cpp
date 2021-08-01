@@ -2,6 +2,9 @@
 #include <string>
 #include <algorithm> // for std::sort
 
+// Link to help how to logically generate permutations
+// https://www.dcode.fr/permutations-generator
+
 unsigned counter = 0;
 
 /**
