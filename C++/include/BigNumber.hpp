@@ -105,7 +105,7 @@ BigNumber BigNumber::operator*(const BigNumber& bg) {
 	return ret;
 }
 
-BigNumber BigNumber::operator*(std::size_t num) {
+BigNumber BigNumber::operator*(unsigned long num) {
 	std::string orginalNumber = this->getNumber();
 	BigNumber ret("0");
 	for(std::size_t i = 0; i < num; i++) {
