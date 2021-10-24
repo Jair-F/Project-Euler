@@ -13,7 +13,17 @@ std::string stringFromBack(std::string& str) {
 	return str;
 }
 
-// Nur fuer positive und ganze zahlen
+/*
+	Only for positive and real(int) numbers
+
+	Implemented basic +,* and equalation(==,>,<...) operators on string basis.
+	It uses 'written calculation' like we learned in the 1'st - 4'th grade!
+	This allows us to calculate bigger numbers than the normal int or long long can calculate.
+	We are only limited at the RAM and the CPU!
+
+	Of course this is a bit slower than calculating with int's of long long's but its not so limited
+	by its max-size/number!
+*/
 class BigNumber {
 private:
 	std::string number;
