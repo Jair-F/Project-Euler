@@ -14,5 +14,4 @@ SOURCE_FILE=$1
 echo "Compiling \"$SOURCE_FILE\""
 
 clear
-g++ -O3 "$1" -o a.out
-time ./a.out && rm a.out
+g++ -O3 "$1" -o a.out && time ./a.out && rm a.out
