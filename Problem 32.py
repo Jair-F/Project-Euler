@@ -17,7 +17,7 @@ def is_pandigital(number:str) -> bool:
 
 sum_of_pandigital_nums = 0
 
-for num in range(1234, 9999+1): # the product has to be a four digit value
+for num in range(1234, 9876+1): # the product has to be a four digit value
     for multiplicand in range(1, int(num/2) + 1):
         if num % multiplicand == 0: # if num is divideable
             multiplier = int(num / multiplicand)
